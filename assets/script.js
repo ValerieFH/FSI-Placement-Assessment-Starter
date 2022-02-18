@@ -22,47 +22,32 @@ let qtyCC = document.querySelector('#qty-cc')
 let qtySugar = document.querySelector('#qty-sugar')
 let qtyTotal = document.querySelector('#qty-total')
 
-//GB button event listeners
-gbPlusBtn.addEventListener('click', function() {
-gb++
-qtyGB.textContent = gb
-qtyTotal.textContent = gb + cc + sugar
-})
+let Btns = [{
+    plusBtnName:gbPlusBtn,
+    minusBtnName:gbMinusBtn,
+    varName:gb,
+    displayName:qtyGB},{
+    plusBtnName:ccPlusBtn,
+    minusBtnName:ccMinusBtn,
+    varName:cc,
+    displayName:qtyCC},{
+    plusBtnName:sugarPlusBtn,
+    minusBtnName:sugarMinusBtn,
+    varName:sugar,
+    displayName:qtySugar
+    }]
 
-gbMinusBtn.addEventListener('click', function(){
-    if (gb > 0){
-        gb--
-        qtyGB.textContent = gb
-        qtyTotal.textContent = gb + cc + sugar
-    }
-})
-
-//CC button event listeners
-ccPlusBtn.addEventListener('click', function() {
-    cc++
-    qtyCC.textContent = cc
-    qtyTotal.textContent = gb + cc + sugar
+for (let i = 0; i < Btns.length; i++){
+    Btns[i].plusBtnName.addEventListener('click', function(){
+        Btns[i].varName++
+        Btns[i].displayName.textContent = Btns[i].varName
+        qtyTotal.textContent = Btns[0].varName + Btns[1].varName + Btns[2].varName
     })
-    
-ccMinusBtn.addEventListener('click', function(){
-    if (cc > 0){
-        cc--
-        qtyCC.textContent = cc
-        qtyTotal.textContent = gb + cc + sugar
+    Btns[i].minusBtnName.addEventListener('click', function(){
+        if (Btns[i].varName > 0){
+            Btns[i].varName--
+            Btns[i].displayName.textContent = Btns[i].varName
+            qtyTotal.textContent = Btns[0].varName + Btns[1].varName + Btns[2].varName
         }
     })
-
-//Sugar button event listeners
-sugarPlusBtn.addEventListener('click', function() {
-    sugar++
-    qtySugar.textContent = sugar
-    qtyTotal.textContent = gb + cc + sugar
-    })
-    
-sugarMinusBtn.addEventListener('click', function(){
-    if (sugar > 0){
-        sugar--
-        qtySugar.textContent = sugar
-        qtyTotal.textContent = gb + cc + sugar
-        }
-    })
+}
